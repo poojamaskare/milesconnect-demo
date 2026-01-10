@@ -52,7 +52,12 @@ export async function POST(request: Request) {
       }, { status: 400 })
     }
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    // Get the base URL dynamically from request headers or environment variable
+    const headers = request.headers
+    const host = headers.get('host') || 'localhost:3000'
+    const protocol = headers.get('x-forwarded-proto') || (host.includes('localhost') ? 'http' : 'https')
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || `${protocol}://${host}`
+    
     const redirectUrl = `${appUrl}/api/payment/callback?shipmentId=${shipmentId}`
     const callbackUrl = `${appUrl}/api/payment/webhook`
 
