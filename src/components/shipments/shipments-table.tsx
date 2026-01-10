@@ -155,7 +155,7 @@ export function ShipmentsTable({ shipments }: ShipmentsTableProps) {
                 </TableCell>
                 <TableCell>{shipment.drivers?.name || '-'}</TableCell>
                 <TableCell>
-                  {shipment.vehicles 
+                  {shipment.vehicles && shipment.vehicles.license_plate
                     ? `${shipment.vehicles.type} (${shipment.vehicles.license_plate})`
                     : '-'
                   }
